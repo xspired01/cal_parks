@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cal Parks</title>
+        <!--Bootstrap CSS styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+        <!--main CSS stylesheet -->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <!--jQuery plugin for Bootstrap js and other API's-->
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <!--font awesome icons-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-default" >
+            <div class="container-fluid" >
+                <div class="navbar-header" >
+                    <a class="navbar-brand" href="/">Cal Parks</a>
+                </div>
+                <div class="collapse navbar-collapse" >
+                    <ul class="nav navbar-nav navbar-right" >
+                            <% if(!currentUser){ %>
+                                <li><a href="/login">Login</a></li>
+                                <li><a href="/register">Register</a></li>
+                                <li><a href="/about">About</a></li>
+                            <%    }  else  {  %>
+                                <li><a href="/users/<%=currentUser._id%>">Signed In As:   <%= currentUser.username %></a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/logout">Sign Out</a></li>
+                            <%  }  %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- elements for flash messages -->
+        <div class="container">
+            <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert" >
+                <%= error %>
+            </div>
+            <% } %>
+            <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert" >
+                <%= success %>
+            </div>
+            <% } %>
+        </div>

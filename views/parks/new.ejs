@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+            <h1 style="text-align: center">Create a New Park</h1>
+            <form method="POST" action="/parks" enctype="multipart/form-data" class="thumbnail" id="park-new">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control"  type="text" placeholder="Park Name" name="name">
+                </div>
+                <div class="form-group" >
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="park-desc" type="text" placeholder="Park Description" name="description"></textarea>
+                </div>
+                <div class="form-group" >
+                    <label for="location">Location</label><span>*</span>
+                    <input class="form-control" type="text" placeholder="Park Location" name="location" id="location">
+                </div>
+                <div class="form-group" >
+                    <label for="image">Image</label><span>*</span>
+                    <input type="file" accept="image/*" name="image" required>
+                </div>
+                 <p>
+                    Note: * indicates a required field.
+                </p>
+                <p>
+                    Also note, depending on the size of the file, it may take a few seconds to upload.     
+                </p>
+                <div class="form-group" >
+                    <button class="btn btn-lg btn-primary btn-block" >Submit!</button>
+                </div>
+            </form>
+            <a class="btn btn-primary" href="/parks" >Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>

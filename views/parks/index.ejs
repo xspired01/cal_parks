@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+<% if(currentUser && currentUser.isAdmin){%>
+    <h1 class="text-center">You are an Admin</h1>
+<% }    %>
+
+<div class="container" >
+    <div class="park-index-header">
+        <h1>Welcome to Cal Parks!</h1>
+        <p>View parks from all over California.</p>
+        <p>
+            <a class="btn btn-primary btn-large" style="width: 30%" href="/parks/new">Add New Park</a>
+        </p>
+        <form action="/parks" method="GET" class="form-inline">
+            <div class="form-group">
+                <input type="text" name="search" placeholder="Search by park name..." class="form-control">
+                 <button class="btn btn-primary"><span class="form-group-addon"><i class="fas fa-search"></i></span>  Search</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;" >
+         <% parks.forEach(function(park){ %>
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="thumbnail">
+                    <img src="<%= park.image  %>" >
+                    <div class="caption">
+                         <h4><%= park.name %></h4>
+                    </div>
+                    <p>
+                        <a href="/parks/<%= park._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+              </div>
+        <% });  %>
+     </div>
+</div>
+<% include ../partials/footer %>

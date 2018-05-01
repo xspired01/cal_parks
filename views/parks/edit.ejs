@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row" >
+        <h1>Edit <%= park.name %></h1>
+        <!--style tag is until css.style is fully setup in static dir-->
+        <form action="/parks/<%= park._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input style="width: 40%" class="form-control"  type="text" value="<%= park.name %>" name="park[name]">
+            </div>
+            <div class="form-group" >
+                <label for="description">Description</label>
+                <textarea  class="form-control" type="text" value="<%= park.description %>" name="park[description]" 
+                 id="park-textarea-description"><%= park.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input style="width: 40%" class="form-control" type="text" value="<%= park.location %>" name="location" id="location">
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input style="width: 40%" type="file" name="image" id="image" accept="image/*">
+            </div>
+            <div class="form-group" >
+                <button style="width: 40%" class="btn btn-lg btn-primary btn-block">Submit!</button>
+            </div>
+        </form>
+        <a class="btn btn-primary"  href="/parks" >Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>

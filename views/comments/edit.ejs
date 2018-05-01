@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row" >
+        <!--style tag is mainly for button until css.style is setup in static dir-->
+        <div style="width: 40%; margin: 25px auto;" >
+        <h1>Edit Comment </h1>
+        <form method="POST" action="/parks/<%= park_id %>/comments/<%= comment._id %>?_method=PUT">
+            <div class="form-group" >
+                <input class="form-control" type="text" value="<%= comment.text %>" name="comment[text]">
+            </div>
+            <div class="form-group" >
+                <button class="btn btn-lg btn-primary btn-block" >Submit!</button>
+            </div>
+            </div>
+        </form>
+        <a   href="/parks/<%= park_id %>" >Go Back</a> 
+    </div>
+   
+</div>
+<% include ../partials/footer %>

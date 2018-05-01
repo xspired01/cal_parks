@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+<!-- User Profile show.ejs page -->
+<div="container">
+    <div class="row" >
+        <div class="col-md-6 user">
+            <div class="thumbnail" >
+                <h3 class="text-center">Posts</h3>
+                <ul>
+                    <% parks.forEach(function(park){ %> 
+                        <li><a href="/parks/<%= park.id %>"><%= park.name %></a></li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 user">
+            <div class="thumbnail">
+                <div class="user">
+                <h3 class="text-center"><%= user.username %></h3>
+                <div id="user-avatar" class="thumbnail">
+                <img  class="img-responsive" src="<%= user.avatar %>" alt="user image">
+                </div>
+                <p class="user-bio"><%= user.bio %></p>
+                <% if( currentUser && user._id.equals(currentUser._id)){ %>
+                    <div class="user">
+                        <h3 class="text-center">Private Information</h3>
+                        <h4>Name</h4>
+                        <p><%= user.firstName + " " + user.lastName %></p>
+                        <h4>Email</h4>
+                        <p><%= user.email %></p>
+                        <br>
+                        <a class="btn btn-warning" href="/users/<%= user._id %>/edit">Edit Profile</a>
+                    </div>
+                <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center" >
+        <a href="/parks" class="btn btn-primary">Back to Parks</a>
+    </div>
+    <br>
+</div>
+<% include ../partials/footer %>

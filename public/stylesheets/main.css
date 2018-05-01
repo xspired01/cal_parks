@@ -1,0 +1,94 @@
+.thumbnail img {
+    /*width: 100%;*/
+}
+
+.delete-form {
+    display: inline;
+}
+
+#edit-user-form {
+    padding: 10px;
+    width: 40%;
+    margin: 25px auto;
+}
+
+#h1-edit-user-form {
+    text-align: center;
+}
+
+.logging-in {
+    width: 30%;
+    margin: 25px auto;
+    
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+#park-desc {
+    height: 70px;
+    
+}
+
+.park-comment-p {
+    word-break: break-all;
+}
+
+.park-desc-p {
+    word-break: break-all;
+}
+
+.park-index-header {
+    text-align: center;
+}
+
+#park-new {
+    padding: 10px;
+     width: 45%;
+    margin: 25px auto;
+   
+}
+
+#park-textarea-description {
+    height: 150px;
+    width: 400px;
+}
+
+#register-h1 {
+    text-align: center;
+}
+
+#register-form {
+    padding: 10px;
+    width: 45%;
+    margin: 25px auto;
+}
+
+#user-avatar {
+    margin: 25px auto;
+    width: 50%;
+}
+
+.user {
+    padding: 30px;
+}
+
+.user-bio {
+    margin: 25px auto;
+    width: 60%;
+    padding: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    border-radius: 5px;
+}
+
+#weather {
+    height: 250px;
+    width: 100%;
+    margin: 30px auto;
+    text-align: center;
+   
+}

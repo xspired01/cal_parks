@@ -1,0 +1,130 @@
+<% include ../partials/header  %>
+<div class="container" >
+    <div class="row">
+        <div class="col-md-3">
+            <div id="map"></div>
+            <div class="col-md-12">
+            <div id="weather" class="thumbnail">
+            </div>
+        </div>
+        </div>
+        <div class="col-md-9" >
+            <div class="thumbnail" >
+                <img class="img-responsive" src="<%= park.image %>" alt="Park Image">
+                <div class="caption-full">
+                    <h4><%= park.name  %></h4>
+                    <p><em><%= park.location %></em></p>
+                    <p class="park-desc-p"><%= park.description %></p>
+                    <p>
+                        Submitted by <strong> <a href="/users/<%=park.author.id%>" ><%= park.author.username %></a></strong>, <%= moment(park.createdAt).fromNow() %>
+                    </p>
+                    <% if(currentUser && park.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){  %>
+                        <a class="btn btn-warning" href="/parks/<%= park._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/parks/<%= park._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">DELETE</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well" >
+                <div class="text-center">
+                    <a class="btn btn-primary" href="/parks/<%= park._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% park.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><a href="/users/<%=comment.author.id%>"><%= comment.author.username %></a></strong>
+                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                            <p class="park-comment-p">
+                                <%= comment.text %>
+                            </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){  %>
+                                <a class="btn btn-xs btn-warning" href="/parks/<%= park._id %>/comments/<%= comment._id %>/edit">
+                                    Edit
+                                </a>
+                                <form class="delete-form" action="/parks/<%= park._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <input  type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <a class="btn btn-primary" href="/parks">Back to Parks</a>
+            <hr>
+        </div>
+    </div>   
+</div>
+<!-- Google Maps-->
+<script>
+    function initMap(){
+        var lat = <%= park.lat %>;
+        var lng = <%= park.lng %>;
+        var center = {  lat: lat, lng: lng };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: center,
+            scrollwheel: false
+        });
+        var contentString = `
+        <strong><%= park.name %><br />
+        <%= park.location %></strong>
+        <p><%= park.description %></p>
+        `
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+        marker.addListener('click', function(){
+            infowindow.open(map, marker);
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgPEjmUx1QtDQzfq_QRNv35W_32D-zhCg&callback=initMap"></script>
+<!-- Weather -->
+<script>
+// function to get weather data
+function getWeather(){
+    //const weatherkey = process.env.WEATHERKEY;
+    const lat =  <%= park.lat %>;
+    const lng =  <%= park.lng %>;
+    const url = `https://api.wunderground.com/api/126aed9fa1206b4e/geolookup/conditions/q/${lat},${lng}.json`;
+    return fetch(url).then(function(weatherResponse){
+        return weatherResponse.json()
+    })
+    .then(function(weatherJSON){
+        console.log(weatherJSON);
+        var location = weatherJSON['location']['city'];
+        var temp_f = weatherJSON['current_observation']['temp_f'];
+        var weather = weatherJSON['current_observation']['weather'];
+        var icon = weatherJSON['current_observation']["icon_url"];
+        var weatherData = { location:location, temp_f: temp_f, weather: weather, icon:icon };
+        displayWeather(weatherData);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+}
+// displays Weather data for park
+function displayWeather(weatherData){
+    let showLocation = document.createElement('h3');
+    let showWeather = document.createElement('h5');
+    let showTemp = document.createElement('h1');
+    let img = document.createElement('img');
+    img.src = weatherData.icon;
+    showLocation.innerText = weatherData.location;
+    showWeather.innerText = weatherData.weather;
+    showTemp.innerText = weatherData.temp_f + " F";
+    let weather = document.getElementById('weather');
+    weather.appendChild(showLocation);
+    weather.appendChild(showWeather);
+    weather.appendChild(showTemp);
+    weather.appendChild(img);
+};
+getWeather();
+</script>
+<% include ../partials/footer %>

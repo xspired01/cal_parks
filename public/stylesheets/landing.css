@@ -1,0 +1,23 @@
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+#landing-header h1 {
+    color: #fff;
+    text-shadow: 2px 3px 4px #000;
+}
+
+#landing-header p {
+    color: #fff;
+    text-shadow: 2px 3px 4px #000;
+}
+
+#carouselExampleIndicators {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
